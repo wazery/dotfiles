@@ -7,6 +7,7 @@
     ~/.vimrc: vimrc
     ~/.zshrc: zshrc
     ~/.oh-my-zsh: .oh-my-zsh/
+    ~/.gitignore: gitignore  
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
