@@ -1,3 +1,8 @@
+# Allow local customizations in the ~/.zshrc_local_before file
+if [ -f ~/.zshrc_local_before ]; then
+    source ~/.zshrc_local_before
+fi
+
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 

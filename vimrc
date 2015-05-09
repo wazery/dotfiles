@@ -1,13 +1,19 @@
+" Allow local customizations in ~/.vimrc_local
+let $LOCALFILE=expand("~/.vimrc_local")
+if filereadable($LOCALFILE)
+    source $LOCALFILE
+endif
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
  
-" set the runtime path to include Vundle and initialize
+" Set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
  
-" let Vundle manage Vundle, required
+" Let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 Plugin 'vim-scripts/ScrollColors'
 Plugin 'bling/vim-airline'
