@@ -26,3 +26,7 @@ Copyright (c) 2015 Islam Wazery. Released under the MIT License. See
 
 [dotbot]: https://github.com/anishathalye/dotbot
 [license]: LICENSE.md
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/wazery/dotfiles/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
