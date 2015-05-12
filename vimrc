@@ -1,5 +1,5 @@
 " Allow local customizations in ~/.vimrc_local
-let $LOCALFILE=expand("~/.vimrc_local")
+let $LOCALFILE=expand('~/.vimrc_local')
 if filereadable($LOCALFILE)
     source $LOCALFILE
 endif
@@ -21,6 +21,8 @@ Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-rake'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
+Plugin 'daylerees/colour-schemes'
+Plugin 'terryma/vim-expand-region'
  
 " Keep Plugin commands between vundle#begin/end.
  
@@ -28,11 +30,37 @@ Plugin 'tpope/vim-repeat'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
+" Auto set the current directory from the current file
+set autochdir
+
+" Remove toolbar, scrollbar, etc..
+set guioptions-=L
+set guioptions-=r
+set guioptions-=T
+
+" Map leader key to comma
+let mapleader=','
+
+" Leader key mappings
+nnoremap <Leader>w :w<CR>
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
+" Region expanding
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+" Stop the stupid window from openning up while quiting
+map q: :q
+
 " Use ack instead of grep
 set grepprg=ack
 
-" Vim Rails related stuff
-" Edit routes and Gemfile
+" Add custom commands to Rails.vim
 command! Rroutes :RE config/routes.rb
 command! RTroutes :RTedit config/routes.rb
 command! Rgem :RE Gemfile
@@ -62,8 +90,7 @@ let g:airline#extensions#hunks#non_zero_only = 1
 let g:lightline = { 'colorscheme': 'gotham' }
 
 " Color scheme
-"colorscheme gotham
-colorscheme gruvbox
+colorscheme gruvbox "gotham
 set background=dark
 
 " Set default initial window size
@@ -74,3 +101,31 @@ set guifont=Menlo\ Regular:h15
 
 " Ctags related stuff
 set tags=./tags;
+
+" Smooth mouse scrolling
+set mouse=a
+map <ScrollWheelUp> <C-Y>
+map <ScrollWheelDown> <C-E>
+
+" Smooth keyboard scrolling
+function SmoothScroll(up)
+    if a:up
+        let scrollaction="^Y"
+    else
+        let scrollaction="^E"
+    endif
+    exec "normal " . scrollaction
+    redraw
+    let counter=1
+    while counter<&scroll
+        let counter+=1
+        sleep 10m
+        redraw
+        exec "normal " . scrollaction
+    endwhile
+endfunction
+
+nnoremap <C-U> :call SmoothScroll(1)<Enter>
+nnoremap <C-D> :call SmoothScroll(0)<Enter>
+inoremap <C-U> <Esc>:call SmoothScroll(1)<Enter>i
+inoremap <C-D> <Esc>:call SmoothScroll(0)<Enter>i
