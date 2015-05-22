@@ -16,13 +16,18 @@ call vundle#begin()
 " Let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 Plugin 'vim-scripts/ScrollColors'
-Plugin 'bling/vim-airline'
+Plugin 'vim-scripts/tComment'
+Plugin 'vim-scripts/ruby-matchit'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-rake'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
+Plugin 'bling/vim-airline'
 Plugin 'daylerees/colour-schemes'
 Plugin 'terryma/vim-expand-region'
+Plugin 'wincent/Command-T'
+Plugin 'mattn/emmet-vim'
+Plugin 'Chiel92/vim-autoformat'
  
 " Keep Plugin commands between vundle#begin/end.
  
@@ -64,6 +69,9 @@ set grepprg=ack
 command! Rroutes :RE config/routes.rb
 command! RTroutes :RTedit config/routes.rb
 command! Rgem :RE Gemfile
+
+" Reload vim configurations command
+command! Reload :source ~/.vimrc
 
 " Current line highlight
 set cursorline
