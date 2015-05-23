@@ -22,6 +22,7 @@ Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-rake'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-haml'
 Plugin 'bling/vim-airline'
 Plugin 'daylerees/colour-schemes'
 Plugin 'terryma/vim-expand-region'
@@ -33,6 +34,11 @@ Plugin 'zw/vim-tags'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'mhinz/vim-startify'
+Plugin 'sjl/gundo.vim'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'scrooloose/nerdtree'
 
 " Keep Plugin commands between vundle#begin/end.
  
@@ -89,6 +95,9 @@ set softtabstop=2
 
 " Remove last search highlighting, when hitting return
 nnoremap <CR> :set hlsearch!<cr>
+
+" NerdTree configs
+map <C-n> :NERDTreeToggle<CR>
 
 " Automatic switching between absolute mode and relative ones
 set relativenumber
