@@ -4,9 +4,9 @@ if filereadable($LOCALFILE)
     source $LOCALFILE
 endif
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
- 
+set nocompatible      " We're running Vim, not Vi! .. be iMproved
+filetype off          " required
+
 " Set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -28,7 +28,12 @@ Plugin 'terryma/vim-expand-region'
 Plugin 'wincent/Command-T'
 Plugin 'mattn/emmet-vim'
 Plugin 'Chiel92/vim-autoformat'
- 
+Plugin 'kien/ctrlp.vim'
+Plugin 'zw/vim-tags'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+
 " Keep Plugin commands between vundle#begin/end.
  
 " All of your Plugins must be added before the following line
@@ -91,11 +96,32 @@ autocmd InsertEnter * :set norelativenumber
 autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 
+" Set project specific backup dir
+silent execute '!mkdir "'.$VIMRUNTIME.'/temp"'
+silent execute '!del "'.$VIMRUNTIME.'/temp/*~"'
+set backupdir=$VIMRUNTIME/temp//
+set directory=$VIMRUNTIME/temp//
+
 " Airline config
-let g:airline_theme='gotham'
-let g:airline_powerline_fonts=1
-let g:airline#extensions#hunks#non_zero_only = 1
-let g:lightline = { 'colorscheme': 'gotham' }
+" let g:airline_theme='gotham'
+" let g:airline_powerline_fonts=1
+" let g:airline#extensions#hunks#non_zero_only = 1
+" let g:lightline = { 'colorscheme': 'gotham' }
+
+" CtrlP plugin config
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_working_path_mode = 'ra'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+
+" Ctags configs
+let g:vim_tags_auto_generate = 1
+set tags=./tags;
+
+" UtilSnips configs
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " Color scheme
 colorscheme gruvbox "gotham
@@ -106,9 +132,6 @@ set lines=60 columns=160
 
 " Set default font size
 set guifont=Menlo\ Regular:h15
-
-" Ctags related stuff
-set tags=./tags;
 
 " Smooth mouse scrolling
 set mouse=a
