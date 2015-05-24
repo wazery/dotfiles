@@ -39,6 +39,7 @@ Plugin 'mhinz/vim-startify'
 Plugin 'sjl/gundo.vim'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'scrooloose/nerdtree'
+Plugin 'majutsushi/tagbar'
 
 " Keep Plugin commands between vundle#begin/end.
  
@@ -54,6 +55,15 @@ set guioptions-=L
 set guioptions-=r
 set guioptions-=T
 
+" Convert tabs into 2 spaces
+set softtabstop=2
+set shiftwidth=2
+set tabstop=2
+set expandtab
+
+" Remove Vim's tooltip
+set noballooneval
+
 " Map leader key to comma
 let mapleader=','
 
@@ -65,6 +75,9 @@ nmap <Leader>p "+p
 nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
+nmap <Leader>l :TagbarToggle<CR>
+nmap <Leader>n :NERDTreeToggle<CR>
+nnoremap <leader>. :CtrlPTag<CR>
 
 " Region expanding
 vmap v <Plug>(expand_region_expand)
