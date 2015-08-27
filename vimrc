@@ -12,7 +12,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
- 
+
 " Let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 Plugin 'vim-scripts/ScrollColors'
@@ -24,31 +24,41 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-haml'
 Plugin 'bling/vim-airline'
-Plugin 'daylerees/colour-schemes'
+Plugin 'vim-ruby/vim-ruby'
 Plugin 'terryma/vim-expand-region'
 Plugin 'wincent/Command-T'
 Plugin 'mattn/emmet-vim'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'kien/ctrlp.vim'
 Plugin 'zw/vim-tags'
-Plugin 'vim-ruby/vim-ruby'
 Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
 Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'honza/vim-snippets'
 Plugin 'mhinz/vim-startify'
-Plugin 'sjl/gundo.vim'
 Plugin 'plasticboy/vim-markdown'
-Plugin 'scrooloose/nerdtree'
+Plugin 'MattesGroeger/vim-bookmarks'
+Plugin 'sjl/gundo.vim'
 Plugin 'majutsushi/tagbar'
+Plugin 'duythinht/inori'
+Plugin 'scrooloose/nerdtree'
+
+" Color Schemes
+Plugin 'morhetz/gruvbox'
+Plugin 'daylerees/colour-schemes'
+Plugin 'romainl/Apprentice'
 
 " Keep Plugin commands between vundle#begin/end.
- 
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 " Auto set the current directory from the current file
 set autochdir
+
+" NERDTree configs
+let NERDTreeShowHidden=1
+let NERDTreeChDirMode=2
 
 " Remove toolbar, scrollbar, etc..
 set guioptions-=L
@@ -75,13 +85,39 @@ nmap <Leader>p "+p
 nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
-nmap <Leader>l :TagbarToggle<CR>
+nmap <Leader>b :TagbarToggle<CR>
 nmap <Leader>n :NERDTreeToggle<CR>
+
 nnoremap <leader>. :CtrlPTag<CR>
+
+" Buffer/Tab navigation 
+" , + w closes buffer
+nnoremap <leader>w :bd<CR>
+" , + w closes location buffer
+nnoremap <leader>l :lclose<CR>
+" , + q closes all buffers
+nnoremap <leader>q :%bd<CR>
+" , + , + q closes all
+nnoremap <leader><leader>q :qa<CR>
+
+" This replaces :tabnew which I used to bind to this mapping
+nmap <leader>T :enew<cr>
+" Move to the next buffer
+nmap <leader>j :bnext<CR>
+" Move to the previous buffer
+nmap <leader>k :bprevious<CR>
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
+" Show all open buffers and their status
+nmap <leader>bl :ls<CR>
 
 " Region expanding
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
+
+" Remove last search highlighting, when hitting return
+nnoremap <CR> :set hlsearch!<CR>
 
 " Stop the stupid window from openning up while quiting
 map q: :q
@@ -96,6 +132,8 @@ command! Rgem :RE Gemfile
 
 " Reload vim configurations command
 command! Reload :source ~/.vimrc
+" Or
+nnoremap <leader>r :source ~/.vimrc<CR>
 
 " Current line highlight
 set cursorline
@@ -106,29 +144,30 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 
-" Remove last search highlighting, when hitting return
-nnoremap <CR> :set hlsearch!<cr>
-
-" NerdTree configs
-map <C-n> :NERDTreeToggle<CR>
-
-" Automatic switching between absolute mode and relative ones
+" Automatic switching between absolute and relative mode
 set relativenumber
 autocmd InsertEnter * :set norelativenumber
 autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 
+" Disable swap file creation
+set noswapfile
+
 " Set project specific backup dir
 silent execute '!mkdir "'.$VIMRUNTIME.'/temp"'
 silent execute '!del "'.$VIMRUNTIME.'/temp/*~"'
-set backupdir=$VIMRUNTIME/temp//
-set directory=$VIMRUNTIME/temp//
+set backupdir=~/.vim/backups " backup path
+"set backupdir=$VIMRUNTIME/temp//
+"set directory=$VIMRUNTIME/temp//
 
 " Airline config
+let g:airline_theme='gruvbox'
 " let g:airline_theme='gotham'
-" let g:airline_powerline_fonts=1
 " let g:airline#extensions#hunks#non_zero_only = 1
-" let g:lightline = { 'colorscheme': 'gotham' }
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
+let g:airline#extensions#tabline#fnamemod = ':t' " Show just the filename
 
 " CtrlP plugin config
 let g:ctrlp_map = '<c-p>'
@@ -136,24 +175,47 @@ let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
-" Ctags configs
+" CTags configs
 let g:vim_tags_auto_generate = 1
 set tags=./tags;
 
 " UtilSnips configs
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsExpandTrigger='<tab>'
+let g:UltiSnipsJumpForwardTrigger='<c-b>'
+let g:UltiSnipsJumpBackwardTrigger='<c-z>'
+
+" Gruvbox colorscheme conifigs
+let g:gruvbox_termcolors=16
 
 " Color scheme
-colorscheme gruvbox "gotham
+"colorscheme apprentice
+"colorscheme inori
+colorscheme gruvbox
 set background=dark
 
-" Set default initial window size
-set lines=60 columns=160
+" Gundo shortcut
+nnoremap <Leader>u :GundoToggle<CR>
+let g:gundo_preview_bottom = 1
+let g:gundo_close_on_revert = 1
+let g:gundo_width = 30
+let g:gundo_preview_height = 40
 
-" Set default font size
-set guifont=Menlo\ Regular:h15
+set undofile                   " Save undos after file closes
+set undodir=$HOME/.vim/undo    " Where to save undo histories
+set undolevels=1000            " How many undos
+set undoreload=10000           " Number of lines to save for undo
+set lines=60 columns=160       " Set default initial window size
+set guifont=Menlo\ Regular:h15 " Set default font size
+set noeb vb                    " Show matching bracket
+set showmatch                  " Show matching bracket
+set laststatus=2               " Show status line
+set ruler
+
+" Everyday typos handling
+command W w
+command Q q
+command WQ wq
+command Wq wq
 
 " Smooth mouse scrolling
 set mouse=a
